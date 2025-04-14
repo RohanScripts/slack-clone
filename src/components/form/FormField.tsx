@@ -29,10 +29,19 @@ export const FormField = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
+  const handleFormSubmit: SubmitHandler<any> = (data) => {
+    onSubmit(data);
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  gap-6">
+    <form
+      onSubmit={handleSubmit(handleFormSubmit)}
+      className="flex flex-col gap-6"
+    >
       {fields.map((field) => (
         <div key={field.id}>
           <Label
