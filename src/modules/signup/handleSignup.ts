@@ -9,7 +9,7 @@ export const handleSignup = (
   onSuccess: () => void
 ) => {
   if (data.password === data.confirmPassword) {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+    return createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredentials) => {
         const user = userCredentials.user;
 

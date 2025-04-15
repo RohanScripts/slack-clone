@@ -7,7 +7,7 @@ export const handleLogin = (
   data: LoginSubmittedData,
   onSuccess: () => void
 ) => {
-  signInWithEmailAndPassword(auth, data.email, data.password)
+  return signInWithEmailAndPassword(auth, data.email, data.password)
     .then(() => {
       toast({
         title: "Logged in Successfully",

@@ -3,13 +3,20 @@ import { FormField } from "@/components/form/FormField";
 import { LoginSubmittedData } from "@/components/interfaces/Interfaces";
 import { Link, useNavigate } from "react-router";
 import { handleLogin } from "./handleLogin";
+import { useState } from "react";
 
 export const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (data: LoginSubmittedData) => {
-    console.log(data);
-    handleLogin(data, () => navigate("/dashboard"));
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (data: LoginSubmittedData) => {
+    setIsLoading(true);
+    try {
+      await handleLogin(data, () => navigate("/dashboard"));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -23,6 +30,7 @@ export const Login = () => {
         </p>
       </div>
       <FormField
+        loading={isLoading}
         fields={LoginFields}
         onSubmit={handleSubmit}
         submitText="Login"
