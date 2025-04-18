@@ -8,9 +8,9 @@ export const DashLayout = ({ children }: { children: ReactNode }) => {
       <div className="w-full">
         <DashTop />
       </div>
-      <div className="w-full flex">
+      <div className="w-full  flex">
         <Sidebar />
-        <div>{children}</div>
+        <div className="w-full">{children}</div>
       </div>
     </div>
   );

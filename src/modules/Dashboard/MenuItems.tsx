@@ -4,11 +4,15 @@ interface MenuItemProps {
   icon: ReactNode;
   label: string;
   count?: number;
+  onclick?: () => void;
 }
 
-export const MenuItems = ({ icon, label, count }: MenuItemProps) => {
+export const MenuItems = ({ icon, label, count, onclick }: MenuItemProps) => {
   return (
-    <div className="flex items-center justify-between w-full p-2 cursor-pointer hover:bg-white/10 rounded-md">
+    <div
+      onClick={onclick}
+      className="flex items-center justify-between w-full p-2 cursor-pointer hover:bg-white/10"
+    >
       <div className="flex items-center gap-2">
         {icon}
         <p className="text-white/80 text-sm">{label}</p>

@@ -12,6 +12,7 @@ export default {
       colors: {
         DashTopBg: "#301034",
         DividerSlidebar: "#522653",
+        headerText: "#868686",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

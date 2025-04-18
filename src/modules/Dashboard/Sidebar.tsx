@@ -3,22 +3,27 @@ import { MenuItems } from "./MenuItems";
 import { menuItemsArray } from "@/modules/Dashboard/menuItemsArray";
 import { DialogBox } from "./DialogBox";
 import { useCreateChannel } from "@/hooks/useCreateChannel";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFetchChannels } from "@/hooks/useFetchChannels";
+import { ChannelContext } from "@/context/channelContext";
 
 export const Sidebar = () => {
   const [channelName, setChannelName] = useState("");
   const { isLoading, createChannel } = useCreateChannel();
   const { channels } = useFetchChannels();
-
-  console.log(channels);
+  const channelContext = useContext(ChannelContext);
 
   const handleCreateChannel = () => {
     createChannel(channelName, () => setChannelName(""));
   };
 
+  const handleChannelClick = (channelId: string, channelName: string) => {
+    channelContext?.setChannelId(channelId);
+    channelContext?.setChannelName(channelName);
+  };
+
   return (
-    <div className="w-1/5 h-screen bg-[#3A123E]">
+    <div className="w-1/5 h-[calc(100vh-48px)] bg-[#3A123E]">
       <hr className="border-DividerSlidebar" />
       <div className="flex items-center px-4">
         <div className="w-full h-12 flex items-center cursor-pointer">
@@ -59,6 +64,9 @@ export const Sidebar = () => {
         />
         {channels.map((eachChannel) => (
           <MenuItems
+            onclick={() =>
+              handleChannelClick(eachChannel.id, eachChannel.channelName)
+            }
             key={eachChannel.id}
             icon={<Hash className="text-white/80" />}
             label={eachChannel.channelName}
