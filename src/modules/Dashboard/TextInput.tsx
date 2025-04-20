@@ -31,7 +31,6 @@ export const TextInput = () => {
 
   const handleSubmit = async () => {
     if (input.trim() === "") return;
-    console.log(input);
     setInput("");
     try {
       await addDoc(

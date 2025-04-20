@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
 interface MenuItemProps {
@@ -5,13 +6,23 @@ interface MenuItemProps {
   label: string;
   count?: number;
   onclick?: () => void;
+  selected: boolean;
 }
 
-export const MenuItems = ({ icon, label, count, onclick }: MenuItemProps) => {
+export const MenuItems = ({
+  icon,
+  label,
+  count,
+  onclick,
+  selected,
+}: MenuItemProps) => {
   return (
     <div
       onClick={onclick}
-      className="flex items-center justify-between w-full p-2 cursor-pointer hover:bg-white/10"
+      className={cn(
+        "flex items-center justify-between w-full p-2 cursor-pointer rounded-md",
+        selected ? "bg-white/20" : "hover:bg-white/10"
+      )}
     >
       <div className="flex items-center gap-2">
         {icon}
