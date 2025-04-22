@@ -1,16 +1,17 @@
-import { ChevronDown, Hash, NotebookPen, Plus } from "lucide-react";
+import { ChevronDown, CircleUser, Hash, NotebookPen, Plus } from "lucide-react";
 import { MenuItems } from "./MenuItems";
-// import { menuItemsArray } from "@/modules/Dashboard/menuItemsArray";
 import { DialogBox } from "./DialogBox";
 import { useCreateChannel } from "@/hooks/useCreateChannel";
 import { useContext, useState } from "react";
 import { useFetchChannels } from "@/hooks/useFetchChannels";
 import { ChannelContext } from "@/context/channelContext";
+import { useFetchUsers } from "@/hooks/useFetchUsers";
 
 export const Sidebar = () => {
   const [channelName, setChannelName] = useState("");
   const { isLoading, createChannel } = useCreateChannel();
   const { channels } = useFetchChannels();
+  const {users} = useFetchUsers()
   const channelContext = useContext(ChannelContext);
 
   const handleCreateChannel = () => {
@@ -20,6 +21,13 @@ export const Sidebar = () => {
   const handleChannelClick = (channelId: string, channelName: string) => {
     channelContext?.setChannelId(channelId);
     channelContext?.setChannelName(channelName);
+    channelContext?.setIsDM(false);
+  };
+
+  const handleUserClick = (userId: string, userName: string) => {
+    channelContext?.setChannelId(userId); 
+    channelContext?.setChannelName(userName);
+    channelContext?.setIsDM(true); 
   };
 
   return (
@@ -35,18 +43,17 @@ export const Sidebar = () => {
         </div>
       </div>
       <hr className="border-DividerSlidebar" />
-      {/* menu */}
-      {/* <div className="px-2 py-3 flex flex-col">
-        {menuItemsArray.map((item, index) => (
-          <MenuItems
-            key={index}
-            icon={item.icon}
-            label={item.label}
-            count={item.count}
-          />
-        ))}
-      </div> */}
-      <hr className="border-DividerSlidebar" />
+     {/* users */}
+     <div className="flex items-center px-4 flex-col">
+      <div className="w-full h-12 flex items-center cursor-pointer gap-1">
+          <p className="text-white">Direct Messages</p>
+      </div>
+      {users.map((eachUser)=>(
+        <MenuItems onclick={() => handleUserClick(eachUser.id, eachUser.userName)} icon={<CircleUser size={20} className="text-white/80" />} label={eachUser.userName} />
+      ))}
+     </div>
+     
+      <hr className="border-DividerSlidebar mt-1 mb-1" />
       {/* channels */}
       <div className="flex items-center px-4 flex-col">
         <DialogBox
