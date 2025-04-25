@@ -7,6 +7,8 @@ interface ChannelContextType {
   setChannelName: (id: string) => void;
   isDM: boolean;
   setIsDM: (value: boolean) => void;
+  chatId: string;
+  setChatId: (value: string) => void;
 }
 
 export const ChannelContext = createContext<ChannelContextType | undefined>(
@@ -17,6 +19,7 @@ export const ChannelProvider = ({ children }: { children: ReactNode }) => {
   const [channelId, setChannelId] = useState("");
   const [channelName, setChannelName] = useState("");
   const [isDM, setIsDM] = useState(false);
+  const [chatId, setChatId] = useState("");
 
   return (
     <ChannelContext.Provider
@@ -27,6 +30,8 @@ export const ChannelProvider = ({ children }: { children: ReactNode }) => {
         setChannelName,
         isDM,
         setIsDM,
+        chatId,
+        setChatId,
       }}
     >
       {children}

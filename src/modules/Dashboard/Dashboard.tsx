@@ -1,13 +1,15 @@
-import { ChevronDown, CircleUser, Hash, Inbox } from "lucide-react";
+import { CircleUser, Hash, Inbox } from "lucide-react";
 import { TextInput } from "./TextInput";
 import { useContext, useEffect, useRef } from "react";
 import { ChannelContext } from "@/context/channelContext";
 import { useFetchMessages } from "@/hooks/useFetchMessages";
+import { useFetchDms } from "@/hooks/useFetchDms";
 
 export const Dashboard = () => {
   const messageEndRef = useRef<HTMLDivElement>(null);
   const channelContext = useContext(ChannelContext);
   const { messages } = useFetchMessages();
+  const { dms } = useFetchDms();
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -40,44 +42,85 @@ export const Dashboard = () => {
             </div>
           </div>
           <hr />
+          {channelContext.isDM ? (
+            <div className="p-4 h-full overflow-y-auto">
+              {dms.map((eachMessage) => {
+                if (!eachMessage.timestamp) return null;
+                const currentDate = formatDate(eachMessage.timestamp.toDate());
+                const showDate = currentDate !== lastRenderedDate;
+                lastRenderedDate = currentDate;
 
-          <div className="p-4 h-full overflow-y-auto">
-            {messages.map((eachMessage) => {
-              const currentDate = formatDate(eachMessage.timestamp.toDate());
-              const showDate = currentDate !== lastRenderedDate;
-              lastRenderedDate = currentDate;
+                return (
+                  <div key={eachMessage.id}>
+                    {showDate && (
+                      <div className="flex justify-center my-6">
+                        <div className="text-sm  text-gray-700 px-4 py-1 border border-gray-400 rounded-full shadow-sm">
+                          {currentDate}
+                        </div>
+                      </div>
+                    )}
 
-              return (
-                <div key={eachMessage.id}>
-                  {showDate && (
-                    <div className="flex justify-center my-6">
-                      <div className="text-sm  text-gray-700 px-4 py-1 border border-gray-400 rounded-full shadow-sm">
-                        {currentDate}
+                    <div className="mb-4">
+                      <div className="flex items-center gap-3">
+                        <p className="text-base font-bold">
+                          {eachMessage.sender}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {eachMessage.timestamp.toDate().toLocaleString([], {
+                            hour: "numeric",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                      <div>
+                        <p>{eachMessage.message}</p>
                       </div>
                     </div>
-                  )}
+                  </div>
+                );
+              })}
+              <div ref={messageEndRef} />
+            </div>
+          ) : (
+            <div className="p-4 h-full overflow-y-auto">
+              {messages.map((eachMessage) => {
+                if (!eachMessage.timestamp) return null;
+                const currentDate = formatDate(eachMessage.timestamp.toDate());
+                const showDate = currentDate !== lastRenderedDate;
+                lastRenderedDate = currentDate;
 
-                  <div className="mb-4">
-                    <div className="flex items-center gap-3">
-                      <p className="text-base font-bold">
-                        {eachMessage.sender}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {eachMessage.timestamp.toDate().toLocaleString([], {
-                          hour: "numeric",
-                          minute: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                    <div>
-                      <p>{eachMessage.message}</p>
+                return (
+                  <div key={eachMessage.id}>
+                    {showDate && (
+                      <div className="flex justify-center my-6">
+                        <div className="text-sm  text-gray-700 px-4 py-1 border border-gray-400 rounded-full shadow-sm">
+                          {currentDate}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="mb-4">
+                      <div className="flex items-center gap-3">
+                        <p className="text-base font-bold">
+                          {eachMessage.sender}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {eachMessage.timestamp.toDate().toLocaleString([], {
+                            hour: "numeric",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                      <div>
+                        <p>{eachMessage.message}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-            <div ref={messageEndRef} />
-          </div>
+                );
+              })}
+              <div ref={messageEndRef} />
+            </div>
+          )}
 
           <div className="flex-1 flex flex-col justify-end px-4 pb-4">
             <TextInput />
