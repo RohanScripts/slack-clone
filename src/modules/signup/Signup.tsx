@@ -1,19 +1,19 @@
-import { LoginFields } from "@/components/form/Fields";
 import { FormField } from "@/components/form/FormField";
-import { LoginSubmittedData } from "@/components/interfaces/Interfaces";
+import { SignupSubmittedData } from "@/components/interfaces/Interfaces";
 import { Link, useNavigate } from "react-router";
-import { handleLogin } from "./handleLogin";
+import { handleSignup } from "@/modules/signup/handleSignup";
+import { SignupFields } from "@/components/form/Fields";
 import { useState } from "react";
 
-export const Login = () => {
+export const Signup = () => {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (data: LoginSubmittedData) => {
+  const handleSubmit = async (data: SignupSubmittedData) => {
     setIsLoading(true);
     try {
-      await handleLogin(data, () => navigate("/dashboard"));
+      await handleSignup(data, () => navigate("/login"));
     } finally {
       setIsLoading(false);
     }
@@ -23,7 +23,7 @@ export const Login = () => {
     <div className="max-w-md w-full">
       <div className="w-full ">
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
-          Login to your Slack account
+          Create your Slack account
         </h1>
         <p className="text-center text-gray-600 mb-9">
           Connect with your team and get work done together.
@@ -31,17 +31,17 @@ export const Login = () => {
       </div>
       <FormField
         loading={isLoading}
-        fields={LoginFields}
+        fields={SignupFields}
+        submitText="Create Account"
         onSubmit={handleSubmit}
-        submitText="Login"
       />
       <p className="mt-8 text-center text-sm text-gray-600">
-        New to Slack?{" "}
+        Already have an account?{" "}
         <Link
-          to="/"
+          to="/login"
           className="font-medium text-purple-600 hover:text-purple-500"
         >
-          Create an account
+          Log in
         </Link>
       </p>
     </div>
