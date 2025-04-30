@@ -24,8 +24,29 @@ export const TextInput = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      handleSubmit();
+      if (channelContext.isDM) {
+        handleSendMessage();
+      } else {
+        handleSubmit();
+      }
       e.preventDefault();
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (input.trim() === "") return;
+    setInput("");
+    try {
+      await addDoc(
+        collection(firestore, "directMessages", channelContext.chatId, "dms"),
+        {
+          message: input.trim(),
+          sender: user?.displayName,
+          timestamp: serverTimestamp(),
+        }
+      );
+    } catch (err) {
+      console.log("error in dm: ", err);
     }
   };
 

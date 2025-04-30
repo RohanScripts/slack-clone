@@ -6,7 +6,7 @@ interface MenuItemProps {
   label: string;
   count?: number;
   onclick?: () => void;
-  selected: boolean;
+  selected?: boolean;
 }
 
 export const MenuItems = ({

@@ -2,7 +2,7 @@ import { SignupSubmittedData } from "@/components/interfaces/Interfaces";
 import { auth, db } from "@/firebase";
 import { toast } from "@/hooks/use-toast";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 
 export const handleSignup = (
   data: SignupSubmittedData,
@@ -17,7 +17,7 @@ export const handleSignup = (
           displayName: `${data.firstName} ${data.lastName}`,
         });
 
-        setDoc(doc(db, "users", user.uid), {
+        addDoc( collection(db, "users") ,{
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,

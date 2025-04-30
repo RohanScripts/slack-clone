@@ -22,5 +22,5 @@ export const useFetchChannels = () => {
     fetchChannels();
   }, []);
 
-  return { fetchChannels, channels };
+  return { channels };
 };

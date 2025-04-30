@@ -1,25 +1,45 @@
 import { LoginSubmittedData } from "@/components/interfaces/Interfaces";
-import { auth } from "@/firebase";
+import { auth, db } from "@/firebase";
 import { toast } from "@/hooks/use-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
-export const handleLogin = (
+export const handleLogin = async (
   data: LoginSubmittedData,
   onSuccess: () => void
 ) => {
-  return signInWithEmailAndPassword(auth, data.email, data.password)
-    .then(() => {
+  try {
+    
+
+    const q = await getDocs(query(
+      collection(db, "users"),
+      where("email", "==", data.email)
+    ));
+
+    if (q.empty) {
       toast({
-        title: "Logged in Successfully",
-        variant: "success",
-      });
-      onSuccess();
-    })
-    .catch(() => {
-      toast({
-        title: "Invalid Credentials",
+        title: "Email not found in database",
         variant: "destructive",
-        duration: 3000,
       });
+      return; 
+    }
+
+    await signInWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+
+    toast({
+      title: "Logged in Successfully",
+      variant: "success",
     });
+
+    onSuccess();
+  } catch  {
+    toast({
+      title: "Invalid Credentials",
+      variant: "destructive",
+    });
+  }
 };

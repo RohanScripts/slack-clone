@@ -24,7 +24,7 @@ export const SignupFields = [
   {
     id: "email",
     label: "Email Address",
-    type: "email",
+    type: "text",
     required: true,
     regex: {
       value: regex.email,
@@ -45,7 +45,7 @@ export const SignupFields = [
   {
     id: "confirmPassword",
     label: "Confirm Password",
-    type: "text",
+    type: "password",
     required: true,
     regex: {
       value: regex.password,
