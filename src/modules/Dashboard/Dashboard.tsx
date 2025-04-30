@@ -35,7 +35,7 @@ export const Dashboard = () => {
               <p className="text-lg">{channelContext?.channelName}</p>
             </div>
             <div className="ml-4">
-              <p className="text-xs text-headerText whitespace-nowrap">
+              <p className="text-xs text-headerText whitespace-nowrap hidden lg:block">
                 A central place to organize meetups, coffee chats, and
                 networking in your town!
               </p>
