@@ -1,4 +1,4 @@
-import { ChevronDown, CircleUser, Hash, Plus } from "lucide-react";
+import { CircleUser, Hash, Plus } from "lucide-react";
 import { MenuItems } from "./MenuItems";
 import { DialogBox } from "./DialogBox";
 import { useCreateChannel } from "@/hooks/useCreateChannel";
@@ -99,10 +99,6 @@ export const Sidebar = () => {
       >
         <hr className="border-DividerSlidebar" />
         <div className="flex px-4 flex-col">
-          <div className="w-full h-10 flex items-center justify-between cursor-pointer">
-            <p className="text-white ">Webelight Solutions</p>
-            <ChevronDown color="white" />
-          </div>
           <div className="w-full h-10 flex items-center">
             <p className="text-white truncate">Hello, {user?.displayName}</p>
           </div>

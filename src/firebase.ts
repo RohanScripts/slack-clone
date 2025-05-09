@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBS2piV8xn7CYuUcMJ9D0W2lGabkAJ08Cg",
-  authDomain: "slack-clone-68958.firebaseapp.com",
-  projectId: "slack-clone-68958",
-  storageBucket: "slack-clone-68958.firebasestorage.app",
-  messagingSenderId: "581215845907",
-  appId: "1:581215845907:web:0a2ad69b373969c6a389e6",
+  apiKey: "AIzaSyC3OuH69J_LLC8kbRTMoFm7EKRgH5TVTfY",
+  authDomain: "slack-clone-faede.firebaseapp.com",
+  projectId: "slack-clone-faede",
+  storageBucket: "slack-clone-faede.firebasestorage.app",
+  messagingSenderId: "380235141514",
+  appId: "1:380235141514:web:680fdf3faaf081a47f7873"
 };
 
 export const app = initializeApp(firebaseConfig);
