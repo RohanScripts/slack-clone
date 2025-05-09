@@ -26,8 +26,6 @@ export const DashTop = () => {
         {channelContext?.isMobileMenu ? <X size={20} /> : <Menu size={20} />}
       </button>
       <div className="w-1/5 h-full md:flex justify-end items-center gap-5 p-4 hidden ">
-        <ArrowLeft color="white" className="cursor-pointer hidden md:block" />
-        <ArrowRight color="white" className="cursor-pointer hidden md:block" />
         <Clock color="white" className="cursor-pointer hidden md:block" />
       </div>
       <div className="w-3/5 h-full p-2">
