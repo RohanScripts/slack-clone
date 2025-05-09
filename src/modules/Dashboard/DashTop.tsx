@@ -1,6 +1,4 @@
 import {
-  ArrowLeft,
-  ArrowRight,
   CircleHelp,
   Clock,
   Menu,
