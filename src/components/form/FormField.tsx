@@ -45,7 +45,7 @@ export const FormField = ({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="flex flex-col gap-6"
     >
-      {fields.map((field) => (
+      {fields?.map((field) => (
         <div key={field.id}>
           <Label
             htmlFor={field.id}
