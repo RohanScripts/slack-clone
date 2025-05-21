@@ -16,7 +16,7 @@ interface FieldConfig {
 }
 
 interface FormBuilderProps {
-  fields: FieldConfig[];
+  fields?: FieldConfig[];
   onSubmit: SubmitHandler<any>;
   submitText?: string;
   loading: boolean;

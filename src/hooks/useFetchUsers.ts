@@ -3,6 +3,7 @@ import { collection, getDocs } from "firebase/firestore"
 import { useEffect, useState } from "react"
 
 interface Users{
+    onlineStatus: boolean 
     id: string
     userName: string
     email: string
@@ -15,7 +16,8 @@ export const useFetchUsers = () => {
     const usersData = receivedData.docs.map((eachUser)=>({
         id: eachUser.id,
         userName: `${eachUser.data().firstName} ${eachUser.data().lastName}`,
-        email: eachUser.data().email
+        email: eachUser.data().email,
+        onlineStatus: eachUser.data().onlineStatus,
     }))
     setUsers(usersData)
   }

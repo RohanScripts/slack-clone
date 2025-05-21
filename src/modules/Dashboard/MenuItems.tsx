@@ -7,6 +7,7 @@ interface MenuItemProps {
   count?: number;
   onclick?: () => void;
   selected?: boolean;
+  isOnline?: boolean; // ✅ NEW: online status prop
 }
 
 export const MenuItems = ({
@@ -15,6 +16,7 @@ export const MenuItems = ({
   count,
   onclick,
   selected,
+  isOnline,
 }: MenuItemProps) => {
   return (
     <div
@@ -26,7 +28,12 @@ export const MenuItems = ({
     >
       <div className="flex items-center gap-2">
         {icon}
-        <p className="text-white/80 text-sm">{label}</p>
+        <p className="text-white/80 text-sm relative">
+          {label}
+          {isOnline && (
+            <span className="absolute -top-1 -right-3 w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          )}
+        </p>
       </div>
       {count !== undefined && (
         <div className="bg-white text-black w-7 h-5 rounded-xl flex justify-center items-center text-xs">

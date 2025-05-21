@@ -4,6 +4,7 @@ import Layout from "./Layout/Layout";
 import { Signup } from "@/modules/signup/Signup";
 import { Dashboard } from "./modules/Dashboard/Dashboard";
 import { DashLayout } from "./Layout/DashLayout";
+import usePresence from "./hooks/usePresence";
 
 const AuthLayout = () => {
   return (
@@ -22,6 +23,8 @@ const DashboardLayout = () => {
 };
 
 function App() {
+  usePresence();
+
   return (
     <Routes>
       <Route element={<AuthLayout />}>

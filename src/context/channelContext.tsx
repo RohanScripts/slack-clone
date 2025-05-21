@@ -1,5 +1,12 @@
 import { createContext, useState, ReactNode } from "react";
 
+type PresenceStatus = {
+  [userId: string]: {
+    state: "online" | "offline";
+    last_changed: number;
+  };
+};
+
 interface ChannelContextType {
   channelId: string;
   setChannelId: (id: string) => void;
@@ -11,6 +18,8 @@ interface ChannelContextType {
   setChatId: (value: string) => void;
   isMobileMenu: boolean;
   setIsMobileMenu: (value: boolean) => void;
+  onlineStatus: PresenceStatus;
+  setOnlineStatus: React.Dispatch<React.SetStateAction<PresenceStatus>>;
 }
 
 export const ChannelContext = createContext<ChannelContextType | undefined>(
@@ -23,6 +32,7 @@ export const ChannelProvider = ({ children }: { children: ReactNode }) => {
   const [isDM, setIsDM] = useState(false);
   const [chatId, setChatId] = useState("");
   const [isMobileMenu, setIsMobileMenu] = useState(false);
+  const [onlineStatus, setOnlineStatus] = useState({});
 
   return (
     <ChannelContext.Provider
@@ -37,6 +47,8 @@ export const ChannelProvider = ({ children }: { children: ReactNode }) => {
         setChatId,
         isMobileMenu,
         setIsMobileMenu,
+        onlineStatus,
+        setOnlineStatus,
       }}
     >
       {children}

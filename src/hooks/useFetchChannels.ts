@@ -20,7 +20,7 @@ export const useFetchChannels = () => {
 
   useEffect(() => {
     fetchChannels();
-  }, []);
+  }, [channels]);
 
   return { channels };
 };
